@@ -5,136 +5,344 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DRYF8 | Official Site</title>
     <style>
-        /* Premium Bio-Link Dark Theme */
+        /* Premium Dark Theme with Subtle Ambient Glow */
         body {
-            background-color: #0a0a0c;
+            background-color: #0d0d11;
             color: #f3f4f6;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            overflow: hidden;
-            /* Ambient background glow */
             background-image: 
-                radial-gradient(circle at 50% 50%, rgba(165, 180, 252, 0.05) 0%, transparent 60%);
+                radial-gradient(circle at 50% 50%, rgba(165, 180, 252, 0.03) 0%, transparent 70%);
         }
 
-        /* Compact Central Profile Card */
-        .profile-card {
+        /* 3-Panel Grid System */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 340px 360px 340px; /* Perfect proportions for the panels */
+            gap: 25px;
+            width: 95%;
+            max-width: 1120px;
+            padding: 40px 10px;
+            box-sizing: border-box;
+            align-items: start;
+        }
+
+        /* Reusable Glassmorphism Panel Base Styling */
+        .panel {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            padding: 40px 30px;
-            width: 90%;
-            max-width: 400px; /* Slimmer layout like guns.lol */
-            text-align: center;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+            border-radius: 28px;
+            padding: 30px 24px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(15px);
             box-sizing: border-box;
+            transition: border-color 0.4s ease;
+        }
+        .panel:hover {
+            border-color: rgba(165, 180, 252, 0.15);
         }
 
-        /* Circular Profile Picture Placeholder */
-        .avatar {
-            width: 96px;
-            height: 96px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            margin: 0 auto 20px auto;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
+        /* ==========================================================================
+           LEFT PANEL: MUSIC PLAYER
+           ========================================================================== */
+        .player-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
-        }
-
-        /* Creative Text Animation for Title */
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 900;
-            margin: 0 0 8px 0;
-            letter-spacing: 4px;
+            color: #64748b;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .player-art-box {
+            width: 100%;
+            padding-top: 100%; /* Perfect square ratio */
+            position: relative;
+            background: linear-gradient(135deg, #1e1b4b, #311042);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            margin-bottom: 25px;
+        }
+        .player-art-box img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+        }
+        .track-info h2 {
+            font-size: 1.3rem;
+            margin: 0 0 4px 0;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .track-info p {
+            color: #64748b;
+            margin: 0 0 20px 0;
+            font-size: 0.9rem;
+        }
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 25px;
+        }
+        .timeline {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+        .progress-bar {
+            width: 35%; /* Fixed look position */
+            height: 100%;
+            background: #a5b4fc;
+            border-radius: 2px;
+            position: relative;
+        }
+        .progress-handle {
+            width: 10px; height: 10px;
+            background: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            right: -5px; top: -3px;
+            box-shadow: 0 0 10px #a5b4fc;
+        }
+        .time-stamps {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #475569;
+        }
+        /* Custom Circular Playback Control Wheel */
+        .control-wheel {
+            width: 140px; height: 140px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.4);
+        }
+        .wheel-btn {
+            position: absolute;
+            background: none; border: none; color: #94a3b8;
+            font-size: 0.9rem; cursor: pointer; transition: color 0.2s;
+        }
+        .wheel-btn:hover { color: #ffffff; }
+        .btn-top   { top: 14px; left: 50%; transform: translateX(-50%); }
+        .btn-left  { left: 16px; top: 50%; transform: translateY(-50%); }
+        .btn-right { right: 16px; top: 50%; transform: translateY(-50%); }
+        .btn-center{ top: 50%; left: 50%; transform: translate(-50%, -50%); color: #ffffff; font-size: 1.2rem; }
+
+        /* ==========================================================================
+           CENTER PANEL: PROFILE BIO
+           ========================================================================== */
+        .avatar {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 24px auto;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(165, 180, 252, 0.2);
+            display: block;
+            object-fit: cover;
+        }
+        h1 {
+            font-size: 2.2rem; font-weight: 900; margin: 0 0 8px 0;
+            letter-spacing: 5px; text-transform: uppercase;
             background: linear-gradient(135deg, #ffffff 40%, #a5b4fc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            /* Pointing to the custom breathing glow animation below */
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: textGlow 3s ease-in-out infinite alternate;
         }
-
-        /* The Animation Code */
         @keyframes textGlow {
-            0% {
-                filter: drop-shadow(0 0 2px rgba(165, 180, 252, 0.2));
-                transform: scale(1);
-            }
-            100% {
-                filter: drop-shadow(0 0 15px rgba(165, 180, 252, 0.6));
-                transform: scale(1.02); /* Subtle pulse */
-            }
+            0% { filter: drop-shadow(0 0 2px rgba(165, 180, 252, 0.15)); transform: scale(1); }
+            100% { filter: drop-shadow(0 0 12px rgba(165, 180, 252, 0.4)); transform: scale(1.01); }
         }
-
         .subtitle {
-            color: #64748b;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 35px;
+            color: #64748b; font-size: 0.8rem; text-transform: uppercase;
+            letter-spacing: 4px; margin-bottom: 40px; text-align: center;
         }
-
-        /* Stacked Vertical Links */
-        .links-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
+        .links-stack { display: flex; flex-direction: column; gap: 12px; }
         .btn {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #cbd5e1;
-            padding: 14px 20px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #cbd5e1; padding: 15px 20px; border-radius: 14px;
+            text-decoration: none; font-size: 0.85rem; font-weight: 600;
+            letter-spacing: 1.5px; text-align: center; transition: all 0.2s ease;
+        }
+        .btn:hover {
+            background: #ffffff; color: #000000;
+            transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
         }
 
-        /* Smooth interactive hover styling */
-        .btn:hover {
-            background: #ffffff;
-            color: #000000;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
-            cursor: pointer;
+        /* ==========================================================================
+           RIGHT PANEL: TRACKLIST & MARKETPLACE
+           ========================================================================== */
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
-    </style><img src="IMG_2378%202.png" class="avatar" alt="DRYF8 Profile"></head>
+        .list-title {
+            font-size: 0.75rem; color: #64748b; letter-spacing: 2px; text-transform: uppercase;
+        }
+        .track-list {
+            display: flex; flex-direction: column; gap: 6px;
+            max-height: 380px; overflow-y: auto; padding-right: 4px;
+        }
+        /* Custom clean scrollbar styling */
+        .track-list::-webkit-scrollbar { width: 4px; }
+        .track-list::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 2px; }
+        
+        .track-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 12px 14px; border-radius: 12px; transition: background 0.2s;
+        }
+        .track-item:hover { background: rgba(255, 255, 255, 0.03); }
+        .track-item.active { background: rgba(165, 180, 252, 0.06); border: 1px solid rgba(165, 180, 252, 0.1); }
+        
+        .track-left-meta { display: flex; align-items: center; gap: 14px; }
+        .track-num { font-size: 0.85rem; color: #475569; width: 14px; }
+        .track-item.active .track-num { color: #a5b4fc; font-weight: bold; }
+        .track-meta-text h4 { font-size: 0.9rem; margin: 0 0 2px 0; font-weight: 500; }
+        .track-meta-text p { font-size: 0.75rem; color: #64748b; margin: 0; }
+        
+        /* Premium Action Icons */
+        .action-icon-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #94a3b8; width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.2s; font-size: 0.8rem; text-decoration: none;
+        }
+        .action-icon-btn:hover {
+            background: #a5b4fc; color: #0d0d11; border-color: #a5b4fc; transform: scale(1.05);
+        }
+
+        /* Responsive Layout Configuration for Tablet & Mobile Screens */
+        @media (max-width: 1100px) {
+            .dashboard-grid { grid-template-columns: 1fr; max-width: 420px; gap: 20px; }
+            body { overflow-y: auto; }
+        }
+    </style>
+</head>
 <body>
 
-    <!-- Central Bio Link Card -->
-    <div class="profile-card">
+    <div class="dashboard-grid">
         
-        <!-- Avatar Placeholder (Displays initials 'D8' for now) -->
-        
+        <!-- LEFT PANEL: CUSTOM AUDIO PLAYER -->
+        <div class="panel">
+            <div class="player-header">
+                <span>Now Playing</span>
+                <span>•••</span>
+            </div>
+            
+            <div class="player-art-box">
+                <!-- Using your uploaded artwork asset file -->
+                <img src="IMG_2378%202.png" alt="Track Artwork">
+            </div>
 
-        <!-- Animated Title & Subtitle -->
-        <h1>DRYF8</h1>
-        <div class="subtitle">Producer & Artist</div>
+            <div class="track-info">
+                <h2>LOVELY (REMIX)</h2>
+                <p>DRYF8 Beats</p>
+            </div>
 
-        <!-- Navigation Stack -->
-        <div class="links-stack">
-            <a href="#" class="btn" target="_blank">YOUTUBE</a>
-            <a href="#" class="btn" target="_blank">BEATSTARS</a>
-            <a href="#" class="btn" target="_blank">INSTAGRAM</a>
+            <div class="progress-container">
+                <div class="timeline">
+                    <div class="progress-bar"><div class="progress-handle"></div></div>
+                </div>
+                <div class="time-stamps">
+                    <span>1:14</span>
+                    <span>3:28</span>
+                </div>
+            </div>
+
+            <!-- Custom Playback Interface Wheel -->
+            <div class="control-wheel">
+                <button class="wheel-btn btn-top">⇄</button>
+                <button class="wheel-btn btn-left">◀◀</button>
+                <button class="wheel-btn btn-right">▶▶</button>
+                <button class="wheel-btn btn-center">▶❚❚</button>
+            </div>
         </div>
-        
+
+        <!-- CENTER PANEL: OFFICIAL BIO PROFILE CARD -->
+        <div class="panel" style="padding-top: 40px; padding-bottom: 40px;">
+            <img src="IMG_2378%202.png" class="avatar" alt="DRYF8 Profile">
+            <h1 style="text-align: center;">DRYF8</h1>
+            <div class="subtitle">Producer & Artist</div>
+
+            <div class="links-stack">
+                <a href="#" class="btn" target="_blank">YOUTUBE</a>
+                <a href="#" class="btn" target="_blank">BEATSTARS</a>
+                <a href="#" class="btn" target="_blank">INSTAGRAM</a>
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL: CATALOG TRACKLIST -->
+        <div class="panel">
+            <div class="list-header">
+                <div class="list-title">Beat Catalog</div>
+                <div class="list-title">🛒</div>
+            </div>
+
+            <div class="track-list">
+                <!-- Track Item 1 (Active Mode) -->
+                <div class="track-item active">
+                    <div class="track-left-meta">
+                        <div class="track-num">1</div>
+                        <div class="track-meta-text">
+                            <h4>Lovely Remix</h4>
+                            <p>140 BPM</p>
+                        </div>
+                    </div>
+                    <!-- Buy button cart design layout -->
+                    <a href="#" class="action-icon-btn" title="Buy Beat">🛒</a>
+                </div>
+
+                <!-- Track Item 2 -->
+                <div class="track-item">
+                    <div class="track-left-meta">
+                        <div class="track-num">2</div>
+                        <div class="track-meta-text">
+                            <h4>Dark Space</h4>
+                            <p>130 BPM</p>
+                        </div>
+                    </div>
+                    <a href="#" class="action-icon-btn" title="Buy Beat">🛒</a>
+                </div>
+
+                <!-- Track Item 3 -->
+                <div class="track-item">
+                    <div class="track-left-meta">
+                        <div class="track-num">3</div>
+                        <div class="track-meta-text">
+                            <h4>Cyber Vibe</h4>
+                            <p>165 BPM</p>
+                        </div>
+                    </div>
+                    <a href="#" class="action-icon-btn" title="Buy Beat">🛒</a>
+                </div>
+
+                <!-- Track Item 4 -->
+                <div class="track-item">
+                    <div class="track-left-meta">
+                        <div class="track-num">4</div>
+                        <div class="track-meta-text">
+                            <h4>Chainsaw Drill</h4>
+                            <p>142 BPM</p>
+                        </div>
+                    </div>
+                    <a href="#" class="action-icon-btn" title="Buy Beat">🛒</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </body>
