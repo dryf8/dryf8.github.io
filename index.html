@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DRYF8 | Official Site</title>
     <style>
-        /* Base Styling - Dark Theme */
+        /* Premium Dark Theme with Subtle Cyberpunk Glow */
         body {
-            background-color: #0d0d0d;
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0a0a0c;
+            color: #f3f4f6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -17,39 +17,66 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            overflow-x: hidden;
+            /* Cool ambient lighting effect in the background */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(219, 39, 119, 0.05) 0%, transparent 40%);
         }
 
-        /* Container Layout */
         .container {
             width: 90%;
-            max-width: 800px; /* Perfect desktop width */
+            max-width: 750px;
             text-align: center;
-            padding: 20px;
+            padding: 40px 20px;
             box-sizing: border-box;
         }
 
+        /* Creative Animated Logo */
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin: 0 0 5px 0;
+            letter-spacing: 6px;
             text-transform: uppercase;
+            background: linear-gradient(135deg, #fff 30%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 20px rgba(165, 180, 252, 0.15);
         }
 
-        p {
-            color: #888;
-            font-size: 1.1rem;
+        .subtitle {
+            color: #64748b;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
             margin-bottom: 40px;
         }
 
-        /* Responsive Video Box */
+        /* Glassmorphism Video Container */
+        .video-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            transition: transform 0.4s ease, border-color 0.4s ease;
+            margin-bottom: 40px;
+        }
+
+        /* Hover effect: Card subtly moves and glows when mouse glides over */
+        .video-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(165, 180, 252, 0.2);
+        }
+
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
             height: 0;
             overflow: hidden;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            background: #1a1a1a;
         }
 
         .video-wrapper iframe {
@@ -61,32 +88,74 @@
             border: 0;
         }
 
-        /* Responsive adjustments for phone view */
+        /* Creative Link Buttons */
+        .links-title {
+            font-size: 0.8rem;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            padding: 14px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        /* Individual button hovers */
+        .btn:hover {
+            background: #ffffff;
+            color: #000000;
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        /* Responsive design for mobile screens */
         @media (max-width: 600px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            p {
-                font-size: 0.9rem;
-                margin-bottom: 25px;
-            }
-            .container {
-                width: 95%;
-                padding: 10px;
-            }
+            h1 { font-size: 2.5rem; letter-spacing: 4px; }
+            .subtitle { font-size: 0.8rem; margin-bottom: 30px; }
+            .links-grid { grid-template-columns: 1fr; gap: 10px; }
+            .container { padding: 20px 10px; }
+            .video-card { padding: 8px; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <!-- Header Section -->
         <h1>DRYF8</h1>
-        <p>Music & Beats coming soon.</p>
+        <div class="subtitle">Audiovisual Experience</div>
 
-        <!-- Video Player Frame -->
-        <div class="video-wrapper">
-            <!-- Temporary YouTube link (Rick Astley) - Replace later with your own music video or player! -->
-            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        <!-- Featured Video Card -->
+        <div class="video-card">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Music & Social Links Section -->
+        <div class="links-title">Connect & Stream</div>
+        <div class="links-grid">
+            <!-- You can change the '#' links to your actual URLs later -->
+            <a href="#" class="btn" target="_blank">YOUTUBE</a>
+            <a href="#" class="btn" target="_blank">BEATSTARS</a>
+            <a href="#" class="btn" target="_blank">INSTAGRAM</a>
         </div>
     </div>
 
